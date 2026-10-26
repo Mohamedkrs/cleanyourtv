@@ -2,7 +2,7 @@
 
 This fork of [cleanyourtv](https://github.com/Gathin23/cleanyourtv) makes its launcher run on Fire OS 6
 (Android 7.1), where upstream's launcher can't be installed and Amazon's home screen can't be replaced.
-Everything else is upstream's, and the branch is kept merged with it.
+Everything else is upstream's, as of its `main` on 26 October 2026.
 
 ![The launcher on a Fire TV Stick 4K, 1st gen, Fire OS 6.7.1.1](docs/fire-os-6/home.jpg)
 
@@ -11,8 +11,8 @@ Tested on a Fire TV Stick 4K, 1st gen (AFTMM, mantis), Fire OS 6.7.1.1, build NS
 ## What it changes
 
 - **minSdk 25.** Upstream's launcher needs Android 8. `java.time` comes from core library desugaring, and the
-  three calls Android 7 lacks have fallbacks: `getChangedPackages` (the package receiver already covers it),
-  hardware bitmaps and `Files.readAllLines`.
+  four calls Android 7 lacks have fallbacks: `getChangedPackages` (the package receiver already covers it),
+  hardware bitmaps, `Files.readAllLines` and `Resources#getFont`.
 - **Outfit on Android 7.** Android 7 can't load font XML or variable-font weights, so every label would fall back
   to Roboto. Static 200/300/400/500 cuts of Outfit sit in `res/font/outfit_w*.ttf`; `UiFont` hands them out below
   Android 8, and `LegacyFonts`, a layout factory installed only below Android 8, applies them to layouts.
@@ -58,4 +58,6 @@ home takes over again at once.
 | `READ_LOGS` | Reading the system log for Home presses. A development permission: only `pm grant` over ADB gives it. |
 | `RECEIVE_BOOT_COMPLETED` | Starting the watcher and the launcher after a reboot. Does nothing without `READ_LOGS`. |
 
-No network permission, no accessibility service, no overlay.
+No network permission, no accessibility service, no overlay. Unlike upstream's launcher, it does run one
+background service, `FireHomeWatcher`, which spends its time blocked on reading the log; it starts only once
+`READ_LOGS` has been granted.

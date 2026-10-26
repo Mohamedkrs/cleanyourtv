@@ -3,6 +3,7 @@
 # see insignia-ns55f301na25/ and toshiba-fire-tv-aftha004/.
 #
 # FIRE OS: DEBLOAT ONLY. com.amazon.tv.launcher is a protected package and keeps Home; launcher/ does not apply.
+# (Fire OS 6 fork: launcher/ does apply here, over Amazon's home; see FORK.md.)
 # A custom home is still possible on top of the stock one: the community route is "Launcher Manager Mini" (XDA,
 # SweenWolf), which watches the Home press in the system log and brings a sideloaded launcher such as Projectivy to the
 # front. Both are third-party sideloads, and Amazon has broken earlier versions with OTA updates, so it is not part of
